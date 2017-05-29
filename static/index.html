@@ -2,11 +2,110 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Phaser with a sprinkle of ES6 Dust!</title>
+	<title>Maze</title>
 	<link rel="stylesheet" href="styles/main.css">
 </head>
 <body>
-	<div id="content"></div>
+<div id="result-modal" class="modal">
+	<div class="modal-content">
+		<span id="result-modal-close" class="close">&times;</span>
+		<h2>Вы выполнили задание!</h2>
+		<p id="result-modal-message">Все монекти собраны.</p>
+		<p>
+			Присылайте результат на
+			<a href="mailto:b.strelnikov@tinkoff.ru">b.strelnikov@tinkoff.ru</a>.
+		</p>
+
+	</div>
+</div>
+
+<div id="info-modal" class="modal">
+	<div class="modal-content">
+		<span id="info-modal-close" class="close">&times;</span>
+		<h2>Цели игры</h2>
+		<ol>
+			<li> Соберите все монетки (за минимальное число шагов) </li>
+			<li> Найдите выход (за минимальное число шагов) </li>
+		</ol>
+		<h2>Техническое описание</h2>
+		<p>
+			Необходимо определить глобальную функцию <b>strategy</b>, принимающую следующие аргументы:
+			<ul>
+				<li><b>move</b> - команда передвинуть игрока, аргумент - 'left' | 'right' | 'up' | 'down';</li>
+				<li><b>canMove</b> - проверить, может ли двигаться игрок в указанном направлении,
+					аргумент тот же, что и у <b>move</b>;</li>
+				<li><b>x</b> - текущая координата X (отчет из левого верхнего угла);</li>
+				<li><b>y</b> - текущая координата Y (отчет из левого верхнего угла);</li>
+				<li><b>maze</b> - карта лабиринта (двумерный массив, где элемент 0 - проход, а 1 - стена).</li>
+			</ul>
+		</p>
+	</div>
+</div>
+	<div id="container">
+		<div id="description">
+			<img src="media/logo.png">
+			<div id="scoreText" class="radial-progress" data-progress="0">
+				<div class="circle">
+					<div class="mask full">
+						<div class="fill"></div>
+					</div>
+					<div class="mask half">
+						<div class="fill"></div>
+						<div class="fill fix"></div>
+					</div>
+					<div class="shadow"></div>
+				</div>
+				<div class="inset">
+					<div id="score" class="percentage">0</div>
+					<div class="percentage">
+						<div class="numbers"><span id="percentage">0%</span></div>
+
+					</div>
+				</div>
+			</div>
+			<div id="panel">
+			<div id="toggles">
+				<input type="checkbox" id="mode" class="ios-toggle"/>
+				<label for="mode" class="checkbox-label" data-off="Coins" data-on="Exit"></label>
+				<input type="checkbox" id="start" class="ios-toggle"/>
+				<label for="start" class="checkbox-label" data-off="Stopped" data-on="Running"></label>
+			</div>
+
+				<div class="speed-wrapper">
+					<input type="range" min="1" max="10" id="speed" value="10">
+				</div>
+
+				<button id="info-btn">Challenge info</button>
+				<button id="reset-code-btn">Reset code</button>
+			</div>
+		</div>
+		<div id="content"></div>
+	</div>
+<div id="container-edit">
+	<div id="editor">
+	</div>
+	</div>
+
+<noscript id="initial-code">/*
+* @move : function('left' | 'rigth' | 'up' | 'down')
+* @canMove : function('left' | 'rigth' | 'up' | 'down') => Boolean
+* @x : Number : текущая координата x
+* @y : Number : текущая координата y
+* @maze : Array(Array(0 | 1)) : двумерный массив, описывающий весь лабиринт, 0 - проход, 1 - стена
+*/
+const directions = ['left','right','up', 'down'];
+const getRandDirection = () => directions[Math.floor(Math.random() * directions.length)];
+
+function strategy(move, canMove, x, y, maze) {
+	let direction = getRandDirection()
+
+	while(!canMove(direction))
+		direction = getRandDirection()
+
+	move(direction);
+}
+</noscript>
+	<script src="ace.js" type="text/javascript" charset="utf-8"></script>
 	<script src="scripts/phaser.min.js"></script>
 	<script src="scripts/game.js"></script>
 </body>

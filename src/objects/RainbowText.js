@@ -1,4 +1,4 @@
-class RainbowText extends Phaser.Text {
+export default class RainbowText extends Phaser.Text {
 
 	constructor(game, x, y, text) {
 
@@ -20,20 +20,13 @@ class RainbowText extends Phaser.Text {
 	}
 
 	colorize() {
-
 		for (let i = 0; i < this.text.length; i++) {
-
 			if (this._colorIndex === this._colors.length) {
 				this._colorIndex = 0;
 			}
 
 			this.addColor(this._colors[this._colorIndex], i);
 			this._colorIndex++;
-
 		}
-
 	}
-
 }
-
-export default RainbowText;

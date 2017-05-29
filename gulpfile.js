@@ -6,6 +6,7 @@ var gutil = require('gulp-util');
 var source = require('vinyl-source-stream');
 var buffer = require('gulp-buffer');
 var uglify = require('gulp-uglify');
+var less = require('gulp-less');
 var gulpif = require('gulp-if');
 var exorcist = require('exorcist');
 var babelify = require('babelify');
@@ -66,6 +67,14 @@ function cleanBuild() {
 function copyStatic() {
     return gulp.src(STATIC_PATH + '/**/*')
         .pipe(gulp.dest(BUILD_PATH));
+}
+
+function buildLess() {
+    return gulp.src(STATIC_PATH + '/styles/*.less')
+        .pipe(less({
+            paths: [ path.join(__dirname, 'less', 'includes') ]
+        }))
+        .pipe(gulp.dest(BUILD_PATH + '/styles/'));
 }
 
 /**
@@ -157,11 +166,12 @@ function serve() {
 gulp.task('cleanBuild', cleanBuild);
 gulp.task('copyStatic', ['cleanBuild'], copyStatic);
 gulp.task('copyPhaser', ['copyStatic'], copyPhaser);
-gulp.task('build', ['copyPhaser'], build);
+gulp.task('buildLess', ['copyPhaser'], buildLess);
+gulp.task('build', ['buildLess'], build);
 gulp.task('fastBuild', build);
 gulp.task('serve', ['build'], serve);
 gulp.task('watch-js', ['fastBuild'], browserSync.reload); // Rebuilds and reloads the project when executed.
-gulp.task('watch-static', ['copyPhaser'], browserSync.reload);
+gulp.task('watch-static', ['buildLess'], browserSync.reload);
 
 /**
  * The tasks are executed in the following order:
