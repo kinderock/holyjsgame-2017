@@ -42,7 +42,7 @@ export default class GameState extends Phaser.State {
 						this.game.physics.arcade.enable(finalGroup.create(x * CELL_SIZE, y * CELL_SIZE, "final"));
 					} else {
 						totalFloorCount++;
-						this.game.physics.arcade.enable(coinsGroup.create(x * CELL_SIZE + 4, y * CELL_SIZE + 4, "coin"));
+						this.game.physics.arcade.enable(coinsGroup.create(x * CELL_SIZE, y * CELL_SIZE, "coin"));
 					}
 				}
 			}

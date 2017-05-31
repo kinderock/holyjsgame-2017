@@ -6,7 +6,7 @@ export default class RainbowText extends Phaser.Text {
 
 		this._speed = 125; //ms
 		this._colorIndex = 0;
-		this._colors = ['#ee4035', '#f37736', '#fdf498', '#7bc043', '#0392cf'];
+		this._colors = ['#ffdd2d'];
 
 		this.colorize();
 		this.startTimer();

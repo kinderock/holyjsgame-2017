@@ -17,11 +17,12 @@
 .modal-content {
   background-color: #fefefe;
   margin: auto;
-  padding: 10px 20px;
+  padding: 10px 40px;
   position: relative;
   border: 1px solid #888;
-  width: 40%;
+  width: 600px;
 }
+
 
 /* The Close Button */
 .close {
@@ -55,7 +56,7 @@
   }
 }
 
-@base-color: rgba(19, 191, 17, 1);
+@base-color: #ffdd2d;
 @slider-pip: white;
 @slider-border: 1px solid rgba(0, 0, 0, .3);
 
@@ -170,18 +171,39 @@ html {
 body {
    margin: 0px;
 }
+
+#result-modal {
+  text-align: center;
+}
+
+a:visited {
+  text-decoration: none;
+  color: #74A3C7
+}
+
+a {
+  text-decoration: none;
+  color: #74A3C7
+}
+
 #score {
-  color:rgba(19,191,17,1);
+  color: black;
   position: absolute;
   font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
   top: 20px;
 }
 
-img {
+img.logo {
   display: block;
   margin: 20px auto;
   width: 100px;
   height: 87px;
+}
+
+img.victory {
+  display: block;
+  margin: 20px auto;
+  width: 100px;
 }
 
 #container {
@@ -216,6 +238,7 @@ img {
   box-sizing:border-box;
   margin:0;
   padding:0;
+  color: black;
   /*transition*/
   -webkit-transition:.25s ease-in-out;
   -moz-transition:.25s ease-in-out;
@@ -288,14 +311,14 @@ img {
     height: 100%;
     width: 300px;
     text-align: right;
-    color: #bfbfbf;
+    //color: #bfbfbf;
     white-space: nowrap;
   }
   .ios-toggle:checked + .checkbox-label {
     /*box-shadow*/
-    -webkit-box-shadow: inset 0 0 0 20px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
-    -moz-box-shadow: inset 0 0 0 20px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
-    box-shadow: inset 0 0 0 20px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
+    -webkit-box-shadow: inset 0 0 0 20px @base-color, 0 0 0 2px @base-color;
+    -moz-box-shadow: inset 0 0 0 20px @base-color, 0 0 0 2px @base-color;
+    box-shadow: inset 0 0 0 20px @base-color, 0 0 0 2px @base-color;
   }
   .ios-toggle:checked + .checkbox-label:before {
     left: calc(40%);
@@ -313,34 +336,34 @@ img {
 
   #mode + .checkbox-label {
     /*box-shadow*/
-    -webkit-box-shadow: inset 0 0 0 0px rgba(19, 191, 17, 1), 0 0 0 2px #dddddd;
-    -moz-box-shadow: inset 0 0 0 0px rgba(19, 191, 17, 1), 0 0 0 2px #dddddd;
-    box-shadow: inset 0 0 0 0px rgba(19, 191, 17, 1), 0 0 0 2px #dddddd;
+    -webkit-box-shadow: inset 0 0 0 0px @base-color, 0 0 0 2px #dddddd;
+    -moz-box-shadow: inset 0 0 0 0px @base-color, 0 0 0 2px #dddddd;
+    box-shadow: inset 0 0 0 0px @base-color, 0 0 0 2px #dddddd;
   }
   #mode:checked + .checkbox-label {
     /*box-shadow*/
-    //-webkit-box-shadow: inset 0 0 0 18px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
-    //-moz-box-shadow: inset 0 0 0 18px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
-    //box-shadow: inset 0 0 0 18px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
+    //-webkit-box-shadow: inset 0 0 0 18px @base-color, 0 0 0 2px @base-color;
+    //-moz-box-shadow: inset 0 0 0 18px @base-color, 0 0 0 2px @base-color;
+    //box-shadow: inset 0 0 0 18px @base-color, 0 0 0 2px @base-color;
   }
   #mode:checked + .checkbox-label:after {
-    //color: rgba(19, 191, 17, 1);
+    //color: @base-color;
   }
 
   #start + .checkbox-label {
     /*box-shadow*/
-    -webkit-box-shadow: inset 0 0 0 0px rgba(19, 191, 17, 1), 0 0 0 2px #dddddd;
-    -moz-box-shadow: inset 0 0 0 0px rgba(19, 191, 17, 1), 0 0 0 2px #dddddd;
-    box-shadow: inset 0 0 0 0px rgba(19, 191, 17, 1), 0 0 0 2px #dddddd;
+    -webkit-box-shadow: inset 0 0 0 0px @base-color, 0 0 0 2px #dddddd;
+    -moz-box-shadow: inset 0 0 0 0px @base-color, 0 0 0 2px #dddddd;
+    box-shadow: inset 0 0 0 0px @base-color, 0 0 0 2px #dddddd;
   }
   #start:checked + .checkbox-label {
     /*box-shadow*/
-    -webkit-box-shadow: inset 0 0 0 18px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
-    -moz-box-shadow: inset 0 0 0 18px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
-    box-shadow: inset 0 0 0 18px rgba(19, 191, 17, 1), 0 0 0 2px rgba(19, 191, 17, 1);
+    -webkit-box-shadow: inset 0 0 0 18px @base-color, 0 0 0 2px @base-color;
+    -moz-box-shadow: inset 0 0 0 18px @base-color, 0 0 0 2px @base-color;
+    box-shadow: inset 0 0 0 18px @base-color, 0 0 0 2px @base-color;
   }
   #start:checked + .checkbox-label:after {
-    color: rgba(19, 191, 17, 1);
+    //color: @base-color;
   }
 }
 @import url(http://fonts.googleapis.com/css?family=Lato:100,300,400,700,900,100italic,300italic,400italic,700italic,900italic);
@@ -348,12 +371,12 @@ img {
 .radial-progress {
   @circle-size: 120px;
   @circle-background: #d6dadc;
-  @circle-color: rgba(19, 191, 17, 1);
+  @circle-color: @base-color;
   @inset-size: 90px;
   @inset-color: #fbfbfb;
   @transition-length: 1s;
   @shadow: 6px 6px 10px rgba(0,0,0,0.2);
-  @percentage-color: rgba(19, 191, 17, 1);
+  @percentage-color: @base-color;
   @percentage-font-size: 22px;
   @percentage-text-width: 57px;
   display: block;
