@@ -70,6 +70,12 @@ const infoModalClose = document.getElementById('info-modal-close');
 infoBtn.onclick = () => { infoModal.style.display = 'block'; };
 infoModalClose.onclick = () => { infoModal.style.display = 'none'; };
 
+if (!localStorage.getItem('visited')) {
+	infoBtn.click()
+}
+
+localStorage.setItem('visited', true);
+
 window.onclick = event => {
 	if (event.target === resultModal) {
 		resultModal.style.display = 'none';
