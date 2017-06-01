@@ -16,16 +16,16 @@ const globalEval = (function(global, realArray, indirectEval, indirectEvalWorks)
 		);
 })(this, Array, eval);
 
-const editor = ace.edit("editor");
-window.editor.style.height =  screen.height - 400 + 'px';
+
+
 let initialCode = document.getElementById('initial-code').innerHTML.toString();
 initialCode = initialCode.replace('&gt;', '>').replace('&gt;', '>');
-const previousCode = localStorage.getItem('code');
-if (previousCode) {
-	editor.setValue(previousCode);
-} else {
-	editor.setValue(initialCode);
-}
+const code = localStorage.getItem('code') || initialCode;
+document.getElementById('editor').innerHTML = code;
+
+const editor = ace.edit("editor");
+window.editor.style.height =  screen.height - 400 + 'px';
+
 
 editor.setFontSize(16);
 editor.setTheme("ace/theme/monokai");
@@ -39,10 +39,12 @@ if(game_mode = localStorage.getItem('game_mode')) {
 window.mode.onchange = () => localStorage.setItem('game_mode', window.mode.checked);
 
 window.start.onchange = () => {
-	window.mode.disabled = true;
+
 	if (!window.start.checked) {
-		window.location = '/';
-		return;
+		window.resetState();
+		window.mode.disabled = false;
+	} else {
+		window.mode.disabled = true;
 	}
 	globalEval(editor.getValue());
 };

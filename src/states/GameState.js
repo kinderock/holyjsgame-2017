@@ -6,15 +6,30 @@ import {
 } from '../ui';
 import { WALL, FLOOR, getMaze } from '../mazeGenerator'
 
-let direction;
+let direction = null;
 let score = -1;
 let elems = null;
 let totalFloorCount = -1;
 let exitFound = false;
 let totalTurnsCount = 0;
+let maze = [];
 
 export default class GameState extends Phaser.State {
 	create() {
+		window.resetState = () =>  {
+			direction = null;
+			score = -1;
+			elems = null;
+			totalFloorCount = -1;
+			exitFound = false;
+			totalTurnsCount = 0;
+			setPercents(0);
+			setCounter(0);
+			window.strategy = () => {};
+			maze = [];
+			clearTimeout(window.timerId);
+			this.game.state.start("GameState");
+		};
 		const wallsGroup = this.game.add.group();
 		this.walls = wallsGroup;
 		wallsGroup.enableBody = true;
@@ -102,8 +117,6 @@ export default class GameState extends Phaser.State {
 			}
 		};
 
-		const maze = [];
-
 		for (let x = 0; x < CELL_WIDTH; x++) {
 			maze[x] = [];
 			for (let y = 0; y < CELL_HEIGHT; y++) {
@@ -122,7 +135,7 @@ export default class GameState extends Phaser.State {
 			if (isStrategyRunning() && !direction) {
 				strategy(goTo, canMove, x, y, maze)
 			}
-			setTimeout(step, getSpeed());
+			window.timerId = setTimeout(step, getSpeed());
 		};
 
 		step();
