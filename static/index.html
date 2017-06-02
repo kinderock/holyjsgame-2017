@@ -106,8 +106,8 @@
 * @y : Number : текущая координата y
 * @maze : Array(Array(0 | 1)) : двумерный массив, описывающий весь лабиринт, 0 - проход, 1 - стена
 */
-const directions = ['left','right','up', 'down'];
-const getRandDirection = () => directions[Math.floor(Math.random() * directions.length)];
+var directions = ['left','right','up', 'down'];
+var getRandDirection = () => directions[Math.floor(Math.random() * directions.length)];
 
 function strategy(move, canMove, x, y, maze) {
 	let direction = getRandDirection()
