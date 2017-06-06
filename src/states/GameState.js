@@ -39,7 +39,7 @@ export default class GameState extends Phaser.State {
 		this.final = finalGroup;
 		this.coins = coinsGroup;
 
-		elems = getMaze(false);
+		elems = getMaze(true);
 
 		for (let y = 0; y < CELL_HEIGHT; y++) {
 			for (let x = 0; x < CELL_WIDTH; x++) {
@@ -192,7 +192,7 @@ export default class GameState extends Phaser.State {
 		}
 
 		setPercents(percents);
-		setCounter(counter);
+		setCounter(this.distances[key(x,y)]+ '/' + totalTurnsCount);
 	}
 }
 
