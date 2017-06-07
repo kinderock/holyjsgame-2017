@@ -1,5 +1,54 @@
 const WALL = 1;
 const FLOOR = 0;
+const c = require('colors/safe');
+
+function computeShortestPath(startX, startY, finalX, finalY, maze) {
+    const valid = (a,b) => a < maze.length && a >= 0 && b < maze[0].length && b >= 0;
+    const key = (x, y) => `${x}-${y}`;
+    const paths = {};
+    const notVisited = [];
+    const distances = {};
+
+    paths[key(startX,startY)] = [[startX,startY]];
+
+    for (let x = 0; x < maze.length; x++) {
+        for (let y = 0; y < maze[0].length; y++) {
+            distances[key(x,y)] = Infinity;
+            notVisited.push([x,y])
+        }
+    }
+    distances[key(startX,startY)] = 0;
+
+    function update(currX, currY, nextX, nextY) {
+        if (!valid(currX, currY) || !valid(nextX, nextY)) {
+            return
+        }
+
+        const currentDistance = !maze[currX][currY] && !maze[nextX][nextY] ? 1 : Infinity;
+        if (distances[key(nextX, nextY)] > currentDistance + distances[key(currX, currY)]) {
+            // console.log(currX, currY, nextX, nextY);
+            paths[key(nextX, nextY)] = paths[key(currX, currY)].concat([[nextX, nextY]]);
+            distances[key(nextX, nextY)] = distances[key(currX, currY)] + currentDistance;
+        }
+    }
+
+    while(notVisited.length) {
+        notVisited.sort(
+            (
+                [x1, y1],
+                [x2, y2]
+            ) => distances[key(x1,y1)] - distances[key(x2, y2)] || 0
+        );
+        const [currX, currY] = notVisited.shift();
+        update(currX, currY, currX + 1, currY);
+        update(currX, currY, currX - 1, currY);
+        update(currX, currY, currX, currY + 1);
+        update(currX, currY, currX, currY - 1);
+    }
+    // console.log(key(finalX, finalY), paths);
+    const resultPath = paths[key(finalX, finalY)];
+    return resultPath;
+}
 
 const nearFloorCount = (x, y, maze) => {
     let result = 0;
@@ -12,7 +61,7 @@ const nearFloorCount = (x, y, maze) => {
 
 module.exports = function getMaze(CELL_WIDTH, CELL_HEIGHT, RANDOM_CELL_COUNT = 20) {
     const walls = [];
-    const valid = (a,b) => a < CELL_WIDTH && a >= 0 && b < CELL_HEIGHT && b >= 0;
+    const valid = (a, b) => a < CELL_WIDTH && a >= 0 && b < CELL_HEIGHT && b >= 0;
     let elems = [];
 
     for (let x = 0; x < CELL_WIDTH; x++) {
@@ -64,14 +113,22 @@ module.exports = function getMaze(CELL_WIDTH, CELL_HEIGHT, RANDOM_CELL_COUNT = 2
             randomCells++;
         }
     }
+    const accum = {};
+    // const path = computeShortestPath(0, 0, CELL_WIDTH-1, CELL_HEIGHT-1, elems);
+    // const accum = path.reduce((accum, [x, y]) => {
+    //     accum[`${x}-${y}`] = true;
+    //     return accum;
+    // }, {});
+
     for (let y = 0; y < CELL_HEIGHT; y++) {
         let str = '';
         for (let x = 0; x < CELL_WIDTH; x++) {
-            str += elems[x][y] ? '\x1b[40m\x1b[30m__' : '\x1b[47m\x1b[37m__';
+            str += elems[x][y] ? c.bgBlack('  ') : (accum[`${x}-${y}`] ? c.bgRed('  ') : c.bgWhite('  '));
         }
         console.log(str);
     }
-    console.log('\x1b[40m\x1b[30m__' : '\x1b[47m__')
+    console.log(c.bgBlack(''));
 
+    console.log('generated');
     return elems;
 };

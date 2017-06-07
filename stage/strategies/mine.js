@@ -1,4 +1,4 @@
-module.exports.exit = (() => {
+module.exports.exit = () => {
     function computeShortestPath(startX, startY, finalX, finalY, maze) {
         const valid = (a,b) => a < maze.length && a >= 0 && b < maze[0].length && b >= 0;
         const key = (x, y) => `${x}-${y}`;
@@ -71,14 +71,13 @@ module.exports.exit = (() => {
     function strategy(move, canMove, x, y, maze) {
         if (!fPath) {
             fPath = computeShortestPath(0, 0, maze.length-1, maze[0].length-1, maze);
-            console.log('============================================', fPath.length);
         }
         move(fPath.shift());
     }
     return strategy;
-})();
+};
 
-module.exports.coins = (() => {
+module.exports.coins = () => {
     let edges = null;
     let maze = null;
     const VISITED = 3;
@@ -186,4 +185,4 @@ module.exports.coins = (() => {
 
         move(getDirection(x, y));
     };
-})();
+};
