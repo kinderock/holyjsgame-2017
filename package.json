@@ -1,9 +1,10 @@
 {
-  "name": "phaser-es6-boilerplate",
+  "name": "holyjsgame-2017",
   "version": "1.0.2",
-  "description": "Tiny flexible template for writing Phaser games in ES6/ES2015 with Babel.",
+  "description": "Game for HolyJS 2017",
   "main": "src/index.js",
   "scripts": {
+    "test": "node stage/index.js",
     "start": "gulp",
     "production": "gulp --production",
     "build": "gulp build --production"
@@ -31,6 +32,7 @@
     "yargs": "^4.6.0"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "phaser": "^2.6.2"
   }
 }

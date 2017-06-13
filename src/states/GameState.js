@@ -39,7 +39,7 @@ export default class GameState extends Phaser.State {
 		this.final = finalGroup;
 		this.coins = coinsGroup;
 
-		elems = getMaze(false);
+		elems = getMaze(true);
 
 		for (let y = 0; y < CELL_HEIGHT; y++) {
 			for (let x = 0; x < CELL_WIDTH; x++) {
@@ -67,26 +67,6 @@ export default class GameState extends Phaser.State {
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.setSize(16, 16);
 		this.player.body.collideWorldBounds = true;
-		// this.cursors = this.game.input.keyboard.createCursorKeys();
-		// const onKeyUp = (event) => {
-		// 	if (!window.mode.checked) {
-		// 		switch (event.keyCode) {
-		// 			case Phaser.Keyboard.LEFT:
-		// 				direction = 'left';
-		// 				break;
-		// 			case Phaser.Keyboard.RIGHT:
-		// 				direction = 'right';
-		// 				break;
-		// 			case Phaser.Keyboard.UP:
-		// 				direction = 'up';
-		// 				break;
-		// 			case Phaser.Keyboard.DOWN:
-		// 				direction = 'down';
-		// 				break;
-		// 		}
-		// 	}
-		// };
-		// this.game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
 		const canMove = name => {
 			let x = Math.floor(this.player.body.x / CELL_SIZE);
