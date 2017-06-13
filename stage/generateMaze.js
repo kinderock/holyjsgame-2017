@@ -26,7 +26,6 @@ function computeShortestPath(startX, startY, finalX, finalY, maze) {
 
         const currentDistance = !maze[currX][currY] && !maze[nextX][nextY] ? 1 : Infinity;
         if (distances[key(nextX, nextY)] > currentDistance + distances[key(currX, currY)]) {
-            // console.log(currX, currY, nextX, nextY);
             paths[key(nextX, nextY)] = paths[key(currX, currY)].concat([[nextX, nextY]]);
             distances[key(nextX, nextY)] = distances[key(currX, currY)] + currentDistance;
         }
@@ -45,7 +44,7 @@ function computeShortestPath(startX, startY, finalX, finalY, maze) {
         update(currX, currY, currX, currY + 1);
         update(currX, currY, currX, currY - 1);
     }
-    // console.log(key(finalX, finalY), paths);
+
     const resultPath = paths[key(finalX, finalY)];
     return resultPath;
 }
@@ -113,12 +112,12 @@ module.exports = function getMaze(CELL_WIDTH, CELL_HEIGHT, RANDOM_CELL_COUNT = 2
             randomCells++;
         }
     }
-    const accum = {};
-    // const path = computeShortestPath(0, 0, CELL_WIDTH-1, CELL_HEIGHT-1, elems);
-    // const accum = path.reduce((accum, [x, y]) => {
-    //     accum[`${x}-${y}`] = true;
-    //     return accum;
-    // }, {});
+
+    const path = computeShortestPath(0, 0, CELL_WIDTH-1, CELL_HEIGHT-1, elems);
+    const accum = path.reduce((accum, [x, y]) => {
+        accum[`${x}-${y}`] = true;
+        return accum;
+    }, {});
 
     for (let y = 0; y < CELL_HEIGHT; y++) {
         let str = '';
@@ -129,6 +128,6 @@ module.exports = function getMaze(CELL_WIDTH, CELL_HEIGHT, RANDOM_CELL_COUNT = 2
     }
     console.log(c.bgBlack(''));
 
-    console.log('generated');
+    console.log('generated', CELL_WIDTH, 'X', CELL_HEIGHT, ', random cell count:', RANDOM_CELL_COUNT);
     return elems;
 };

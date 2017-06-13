@@ -67,26 +67,6 @@ export default class GameState extends Phaser.State {
 		this.game.physics.arcade.enable(this.player);
 		this.player.body.setSize(16, 16);
 		this.player.body.collideWorldBounds = true;
-		// this.cursors = this.game.input.keyboard.createCursorKeys();
-		// const onKeyUp = (event) => {
-		// 	if (!window.mode.checked) {
-		// 		switch (event.keyCode) {
-		// 			case Phaser.Keyboard.LEFT:
-		// 				direction = 'left';
-		// 				break;
-		// 			case Phaser.Keyboard.RIGHT:
-		// 				direction = 'right';
-		// 				break;
-		// 			case Phaser.Keyboard.UP:
-		// 				direction = 'up';
-		// 				break;
-		// 			case Phaser.Keyboard.DOWN:
-		// 				direction = 'down';
-		// 				break;
-		// 		}
-		// 	}
-		// };
-		// this.game.input.keyboard.addCallbacks(null, null, onKeyUp);
 
 		const canMove = name => {
 			let x = Math.floor(this.player.body.x / CELL_SIZE);
@@ -192,7 +172,7 @@ export default class GameState extends Phaser.State {
 		}
 
 		setPercents(percents);
-		setCounter(this.distances[key(x,y)]+ '/' + totalTurnsCount);
+		setCounter(counter);
 	}
 }
 
